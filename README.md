@@ -1,4 +1,4 @@
-## SWE 100 questions
+## SWE 100 questions in Python
 
 <details>
 <summary>Question 1: Fizz Buzz</summary>
