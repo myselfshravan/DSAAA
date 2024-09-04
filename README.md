@@ -1,4 +1,4 @@
-## SWE 100
+## SWE 100 questions
 
 <details>
 <summary>Question 1: Fizz Buzz</summary>
