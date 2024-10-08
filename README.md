@@ -1,4 +1,4 @@
-## SWE 100 questions 
+## SWE 100 questions
 
 <details>
 <summary>Question 1 : Fizz Buzz</summary>
@@ -39,6 +39,12 @@ Output: ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13"
 **Constraints:**
 
 * `1 <= n <= 104`
+
+```python
+def fizzBuzz(self, n: int) -> List[str]:
+    return ["FizzBuzz" if i % 3 == 0 and i % 5 == 0 else "Fizz" if i % 3 == 0 else "Buzz" if i % 5 == 0 else str(i) for
+            i in range(1, n + 1)]
+```
 
 </details>
 
@@ -86,7 +92,18 @@ Output: [0,1]
 * `-109 <= target <= 109`
 * **Only one valid answer exists.**
 
-**Follow\-up:**Can you come up with an algorithm that is less than `O(n2)` time complexity?
+**Follow-up:** Can you come up with an algorithm that is less than `O(n2)` time complexity?
+
+```python
+def twoSum(self, nums: List[int], target: int) -> List[int]:
+    prevMap = {}  # val -> index
+
+    for i, n in enumerate(nums):
+        diff = target - n
+        if diff in prevMap:
+            return [prevMap[diff], i]
+        prevMap[n] = i
+```
 
 </details>
 
@@ -116,8 +133,21 @@ Given two strings `s` and `t`, return `true` if `t` is an anagram of `s`, and `f
 
 **Follow up:** What if the inputs contain Unicode characters? How would you adapt your solution to such a case?
 
+```python
+def isAnagram(self, s: str, t: str) -> bool:
+    if len(s) != len(t):
+        return False
 
+    countS, countT = {}, {}
 
+    for i in range(len(s)):
+        countS[s[i]] = 1 + countS.get(s[i], 0)
+        countT[t[i]] = 1 + countT.get(t[i], 0)
+    return countS == countT
+
+# easier solution
+# return True if sorted(s) == sorted(t) else False
+```
 
 </details>
 
@@ -151,6 +181,14 @@ Output: ["h","a","n","n","a","H"]
 
 * `1 <= s.length <= 105`
 * `s[i]` is a [printable ascii character](https://en.wikipedia.org/wiki/ASCII#Printable_characters).
+
+```python
+def reverseString(self, s: List[str]) -> None:
+    left, right = 0, len(s) - 1
+    while left < right:
+        s[left], s[right] = s[right], s[left]
+        left, right = left + 1, right - 1
+```
 
 </details>
 
@@ -198,6 +236,12 @@ Since an empty string reads the same forward and backward, it is a palindrome.
 * `1 <= s.length <= 2 * 105`
 * `s` consists only of printable ASCII characters.
 
+```python
+def isPalindrome(self, s: str) -> bool:
+    s = ''.join(filter(str.isalnum, s)).lower()
+    return s == s[::-1] 
+```
+
 </details>
 
 <details>
@@ -231,6 +275,18 @@ Explanation: There is no common prefix among the input strings.
 * `1 <= strs.length <= 200`
 * `0 <= strs[i].length <= 200`
 * `strs[i]` consists of only lowercase English letters.
+
+```python
+def longestCommonPrefix(self, strs: List[str]) -> str:
+    if not strs:
+        return ""
+
+    for i in range(len(strs[0])):
+        for string in strs[1:]:
+            if i >= len(string) or string[i] != strs[0][i]:
+                return strs[0][:i]
+    return strs[0]
+```
 
 </details>
 
@@ -276,6 +332,17 @@ Explanation: There is no x where 3x = (-1).
 
 **Follow up:** Could you solve it without loops/recursion?
 
+```python
+def isPowerOfThree(self, n: int) -> bool:
+    return n > 0 and 1162261467 % n == 0
+```
+
+```cpp
+bool isPowerOfThree(int n) {
+    return n > 0 && 1162261467 % n == 0;
+}
+```
+
 </details>
 
 <details>
@@ -298,7 +365,7 @@ The input binary string **1011** has a total of three set bits.
 
 **Example 2:**
 
-**Input:** n \= 128
+**Input:** n = 128
 
 **Output:** 1
 
@@ -308,7 +375,7 @@ The input binary string **10000000** has a total of one set bit.
 
 **Example 3:**
 
-**Input:** n \= 2147483645
+**Input:** n = 2147483645
 
 **Output:** 30
 
@@ -321,6 +388,26 @@ The input binary string **1111111111111111111111111111101** has a total of thirt
 * `1 <= n <= 231 - 1`
 
 **Follow up:** If this function is called many times, how would you optimize it?
+
+```python
+def hammingWeight(self, n: int) -> int:
+    count = 0
+    while n:
+        n &= n - 1
+        count += 1
+    return count
+```
+
+```cpp
+int hammingWeight(uint32_t n) {
+    int count = 0;
+    while (n) {
+        n &= n - 1;
+        count++;
+    }
+    return count;
+}
+```
 
 </details>
 
